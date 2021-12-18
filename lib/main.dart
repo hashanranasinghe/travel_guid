@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:travel_guid/screens/category_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:travel_guid/screens/category_travel_screen.dart';
+import 'package:travel_guid/screens/tabs_screen.dart';
 import 'package:travel_guid/screens/travel_details_screen.dart';
 
 void main() {
@@ -42,7 +43,7 @@ class MyApp extends StatelessWidget {
         )
       ),
       routes: {
-        '/': (ctx) => const CategoriesScreen(),
+        '/': (ctx) => const TabsScreen(),
         CategoryTravelScreen.screenName: (ctx) => const CategoryTravelScreen(),
         TravelDetailsScreen.travelDetailsScreenName: (ctx) => const TravelDetailsScreen(),
       },

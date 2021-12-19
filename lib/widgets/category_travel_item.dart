@@ -10,6 +10,7 @@ class CategoryTravelItem extends StatelessWidget {
   final String description;
   final String imageUrl;
   final Complexity complexity;
+  final Function removeItem;
 
 
     const CategoryTravelItem({Key? key,
@@ -17,8 +18,9 @@ class CategoryTravelItem extends StatelessWidget {
       required this.name,
       required this.description,
       required this.imageUrl,
-      required this.complexity}) : super(key: key);
-    String? get ComplexityText{
+      required this.complexity,
+      required this.removeItem}) : super(key: key);
+    String? get complexityText{
       if(complexity == Complexity.simple){
         return "Simple";
       }else if(complexity == Complexity.challenging){
@@ -30,18 +32,18 @@ class CategoryTravelItem extends StatelessWidget {
       return null;
     }
 
-  void SelectPlace(BuildContext ctx){
+  void selectPlace(BuildContext ctx){
     Navigator.of(ctx).pushNamed(TravelDetailsScreen.travelDetailsScreenName,arguments: {
       'id': id,
       'name': name,
       'description':description,
       'imageUrl':imageUrl
-    });
+    }).then((result) => removeItem(result));
   }
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () => SelectPlace(context),
+      onTap: () => selectPlace(context),
       child: Card(
         shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(15)),
@@ -79,7 +81,7 @@ class CategoryTravelItem extends StatelessWidget {
               children: <Widget>[
                 Row(children:  <Widget>[
                   const Icon(Icons.settings),
-                  Text(ComplexityText!,
+                  Text(complexityText!,
                   style: const TextStyle(
                     color: Colors.black
                   ),

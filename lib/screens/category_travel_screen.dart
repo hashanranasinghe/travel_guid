@@ -1,23 +1,45 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:travel_guid/dummy_data.dart';
+import 'package:travel_guid/models/travel_places.dart';
 import 'package:travel_guid/widgets/category_travel_item.dart';
 
-class CategoryTravelScreen extends StatelessWidget {
-  const CategoryTravelScreen({Key? key}) : super(key: key);
+class CategoryTravelScreen extends StatefulWidget {
 
   static const screenName = '/category-travels';
+  List<TravelPlaces> availablePlaces;
+  CategoryTravelScreen(this.availablePlaces);
 
   @override
-  Widget build(BuildContext context) {
-    
+  State<CategoryTravelScreen> createState() => _CategoryTravelScreenState();
+}
+
+class _CategoryTravelScreenState extends State<CategoryTravelScreen> {
+  String? categoryName;
+  List<TravelPlaces>? displayedTravelPlaces;
+
+
+
+
+  @override
+  void didChangeDependencies() {
     final routeArgs =ModalRoute.of(context)!.settings.arguments as Map<String,String>;
     final categoryId = routeArgs['id'];
-    final categoryName = routeArgs['name'];
+    categoryName = routeArgs['name'];
 
-    final categoryTravel = dummyTravelPlaces.where((categoryPlace){
+    displayedTravelPlaces = widget.availablePlaces.where((categoryPlace){
       return categoryPlace.category.contains(categoryId!);
     }).toList();
+    super.didChangeDependencies();
+  }
+  void _removeItem(String selectId){
+      setState(() {
+          displayedTravelPlaces?.removeWhere((TravelPlaces) => TravelPlaces.id == selectId);
+      });
+  }
+  @override
+  Widget build(BuildContext context) {
+
+
 
 
     return Scaffold(
@@ -25,8 +47,15 @@ class CategoryTravelScreen extends StatelessWidget {
         title: Text(categoryName!),
       ),
       body: ListView.builder(itemBuilder: (ctx,index) {
-        return CategoryTravelItem(name: categoryTravel[index].name, imageUrl: categoryTravel[index].imageUrl, complexity: categoryTravel[index].complexity, id: categoryTravel[index].id, description: categoryTravel[index].description,);
-      },itemCount: categoryTravel.length)
+        return
+          CategoryTravelItem(
+            name: displayedTravelPlaces![index].name,
+            imageUrl: displayedTravelPlaces![index].imageUrl,
+            complexity: displayedTravelPlaces![index].complexity,
+            id: displayedTravelPlaces![index].id,
+            description: displayedTravelPlaces![index].description,
+            removeItem: _removeItem,);
+      },itemCount: displayedTravelPlaces?.length)
     );
   }
 }

@@ -2,9 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:travel_guid/dummy_data.dart';
 
 class TravelDetailsScreen extends StatelessWidget {
-  const TravelDetailsScreen({Key? key}) : super(key: key);
+
 
   static const travelDetailsScreenName = '/travel-details';
+  final Function toggleFavorite;
+  final Function isFavorite;
+
+
+  TravelDetailsScreen(this.isFavorite,this.toggleFavorite);
 
   Widget BuildImageSection(String text){
     return SizedBox(
@@ -72,10 +77,13 @@ class TravelDetailsScreen extends StatelessWidget {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        child: const Icon(Icons.delete),
-        onPressed: (){
-          Navigator.of(context).pop(selectId);
-        },
+        child: Icon(isFavorite(selectId) ? Icons.star : Icons.star_border
+        ),
+        onPressed: () => toggleFavorite(selectId),
+        //     (){
+        //   Navigator.of(context).pop(selectId);
+        // },
+
         backgroundColor: Colors.green,
       ),
     );

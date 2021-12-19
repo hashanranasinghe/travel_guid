@@ -29,6 +29,7 @@ class _MyAppState extends State<MyApp> {
     'hard':false,
   };
    List<TravelPlaces> _availableTravelPlaces = dummyTravelPlaces;
+   List<TravelPlaces> _favoriteTravelPlaces = [];
 
   void _setFilters(Map<String,bool> filterData){
       setState(() {
@@ -48,7 +49,25 @@ class _MyAppState extends State<MyApp> {
         }).toList();
       });
   }
+  void _toggleFavorites(String travelId){
 
+    final existingId = _favoriteTravelPlaces.indexWhere((travel) => travel.id == travelId);
+    if(existingId>=0){
+      setState(() {
+        _favoriteTravelPlaces.removeAt(existingId);
+      });
+    }else{
+      setState(() {
+        _favoriteTravelPlaces.add(
+            dummyTravelPlaces.firstWhere((travel) => travel.id == travelId),
+        );
+      });
+    }
+  }
+
+  bool _isFavoriteTravel(String id){
+    return _favoriteTravelPlaces.any((travel)=> travel.id == id);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -76,9 +95,9 @@ class _MyAppState extends State<MyApp> {
         )
       ),
       routes: {
-        '/': (ctx) => const TabsScreen(),
+        '/': (ctx) => TabsScreen(_favoriteTravelPlaces),
         CategoryTravelScreen.screenName: (ctx) => CategoryTravelScreen(_availableTravelPlaces),
-        TravelDetailsScreen.travelDetailsScreenName: (ctx) => const TravelDetailsScreen(),
+        TravelDetailsScreen.travelDetailsScreenName: (ctx) => TravelDetailsScreen(_isFavoriteTravel,_toggleFavorites),
         FiltersScreen.filtersScreenName: (ctx) => FiltersScreen(_filters,_setFilters),
       },
     );

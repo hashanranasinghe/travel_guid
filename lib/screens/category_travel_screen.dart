@@ -54,7 +54,8 @@ class _CategoryTravelScreenState extends State<CategoryTravelScreen> {
             complexity: displayedTravelPlaces![index].complexity,
             id: displayedTravelPlaces![index].id,
             description: displayedTravelPlaces![index].description,
-            removeItem: _removeItem,);
+            // removeItem: _removeItem,
+          );
       },itemCount: displayedTravelPlaces?.length)
     );
   }

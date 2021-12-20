@@ -10,7 +10,7 @@ class CategoryTravelItem extends StatelessWidget {
   final String description;
   final String imageUrl;
   final Complexity complexity;
-  // final Function removeItem;
+  final Function removeItem;
 
 
     const CategoryTravelItem({Key? key,
@@ -19,9 +19,13 @@ class CategoryTravelItem extends StatelessWidget {
       required this.description,
       required this.imageUrl,
       required this.complexity,
-      // required this.removeItem
+      required this.removeItem
     }) : super(key: key);
-    String? get complexityText{
+
+
+
+
+  String? get complexityText{
       if(complexity == Complexity.simple){
         return "Simple";
       }else if(complexity == Complexity.challenging){
@@ -39,8 +43,7 @@ class CategoryTravelItem extends StatelessWidget {
       'name': name,
       'description':description,
       'imageUrl':imageUrl
-    });
-        // .then((result) => removeItem(result));
+    }).then((result) => removeItem(result));
   }
   @override
   Widget build(BuildContext context) {

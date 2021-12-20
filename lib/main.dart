@@ -36,15 +36,15 @@ class _MyAppState extends State<MyApp> {
         _filters = filterData;
         _availableTravelPlaces = dummyTravelPlaces.where((travel){
           if(_filters['simple']! && (travel.complexity == Complexity.simple)){
-            return false;
+            return true;
           }
           else if(_filters['challenging']! && (travel.complexity == Complexity.challenging)){
-            return false;
+            return true;
           }
           else if(_filters['hard']! && (travel.complexity == Complexity.hard)){
-            return false;
+            return true;
           }
-          return true;
+          return false;
 
         }).toList();
       });

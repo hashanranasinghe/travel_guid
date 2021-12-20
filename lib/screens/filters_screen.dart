@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:travel_guid/models/travel_places.dart';
 import 'package:travel_guid/widgets/main_drawer.dart';
 
 class FiltersScreen extends StatefulWidget {

@@ -76,16 +76,28 @@ class TravelDetailsScreen extends StatelessWidget {
           ],
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        child: Icon(isFavorite(selectId) ? Icons.star : Icons.star_border
-        ),
-        onPressed: () => toggleFavorite(selectId),
-        //     (){
-        //   Navigator.of(context).pop(selectId);
-        // },
+        floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+        floatingActionButton: Padding(
+          padding: const EdgeInsets.all(15.0),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: <Widget>[
+              FloatingActionButton(
+                onPressed: (){
+            Navigator.of(context).pop(selectId);
+                         },
+                child: const Icon(Icons.delete),
+              ),
+              FloatingActionButton(
+                child: Icon(isFavorite(selectId) ? Icons.star : Icons.star_border
+                ),
+                onPressed: () => toggleFavorite(selectId),
+                backgroundColor: Colors.green,
+              )
+            ],
+          ),
+        )
 
-        backgroundColor: Colors.green,
-      ),
     );
   }
 

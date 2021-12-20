@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:travel_guid/dummy_data.dart';
 import 'package:travel_guid/models/travel_places.dart';
 import 'package:travel_guid/widgets/category_travel_item.dart';
 
@@ -16,9 +15,6 @@ class CategoryTravelScreen extends StatefulWidget {
 class _CategoryTravelScreenState extends State<CategoryTravelScreen> {
   String? categoryName;
   List<TravelPlaces>? displayedTravelPlaces;
-
-
-
 
   @override
   void didChangeDependencies() {
@@ -54,7 +50,7 @@ class _CategoryTravelScreenState extends State<CategoryTravelScreen> {
             complexity: displayedTravelPlaces![index].complexity,
             id: displayedTravelPlaces![index].id,
             description: displayedTravelPlaces![index].description,
-            // removeItem: _removeItem,
+            removeItem: _removeItem,
           );
       },itemCount: displayedTravelPlaces?.length)
     );
